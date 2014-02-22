@@ -33,10 +33,21 @@ public class MainGUITest extends UiAutomatorTestCase{
 	            "RageTracks");
 	    settingsApp.clickAndWaitForNewWindow();
 	    
-	    //Test
+	    //Tests
 	    // Validate that the application has the proper packageName
 	    UiObject settingsValidation = new UiObject(new UiSelector()
 	        .packageName("com.macieklato.ragetracks"));
 	    assertTrue("Unable to detect Settings", settingsValidation.exists());
+	    
+	    //Make sure the RageTracks Banner is present on startup
+	    UiObject rtBanner = new UiObject(new UiSelector().text("RageTracks"));
+	    assertTrue("rtBanner is not present on startup", rtBanner.exists());
+	    
+	  //Make sure the RageTracks Banner is present on startup
+	    UiObject bottomBanner = new UiObject(new UiSelector().descriptionMatches("Play and Pause button"));
+	    assertTrue("Bottom banner is not present on startup", bottomBanner.exists());
+	    
+	    
+
 	  }
 }
