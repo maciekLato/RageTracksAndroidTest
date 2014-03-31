@@ -1,5 +1,5 @@
 package com.macieklato.ragetracks.test;
-import com.macieklato.ragetracks.activity.MainActivity;
+import com.macieklato.ragetracks.controller.MainActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
 
