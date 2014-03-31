@@ -86,8 +86,5 @@ public class MainGUITest extends UiAutomatorTestCase {
 				new UiSelector().descriptionMatches("Commit search button"));
 		assertTrue("Search animation failed", commitSearchButton.exists());
 
-		
-		
-
 	}
 }

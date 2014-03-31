@@ -1,5 +1,8 @@
 package com.macieklato.ragetracks.test;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import junit.framework.TestCase;
 
 import com.macieklato.ragetracks.util.JSONUtil;
@@ -81,6 +84,70 @@ public class JSONUtilTest extends TestCase {
 	
 	public void testParseNullThumbnail() {
 		assertEquals(null, JSONUtil.parseAttachments(null));
+	}
+	
+	public void testParseEmptyArrayThumbnail() {
+		JSONArray arr = new JSONArray();
+		assertEquals(null, JSONUtil.parseAttachments(arr));
+	}
+	
+	public void testParseNoImageObjectThumbnail() {
+		JSONArray arr = new JSONArray();
+		arr.put(new JSONObject());
+		assertEquals(null, JSONUtil.parseAttachments(arr));
+	}
+	
+	public void testParseNoThubmnailObjectThumbnail() {
+		try {
+			JSONArray arr = new JSONArray();
+			JSONObject idx0 = new JSONObject();
+			arr.put(0, idx0);
+			idx0.put("images", new JSONObject());
+			assertEquals(null, JSONUtil.parseAttachments(arr));
+		} catch(Exception e) {
+			fail();
+		}
+	}
+	
+	public void testParseNoUrlStringThumbnail() {
+		try {
+			JSONArray arr = new JSONArray();
+			JSONObject idx0 = new JSONObject();
+			arr.put(0, idx0);
+			JSONObject images = new JSONObject();
+			idx0.put("images", images);
+			images.put("thumbnail", new JSONObject());
+			assertEquals(null, JSONUtil.parseAttachments(arr));
+		} catch(Exception e) {
+			fail();
+		}
+	}
+	
+	public void testParseGoodUrlThumbnail() {
+		try {
+			JSONArray arr = new JSONArray();
+			JSONObject idx0 = new JSONObject();
+			arr.put(0, idx0);
+			JSONObject images = new JSONObject();
+			idx0.put("images", images);
+			JSONObject thumbnail = new JSONObject();
+			images.put("thumbnail", thumbnail);
+			String url = "testURL";
+			thumbnail.put("url", url);
+			assertEquals(url, JSONUtil.parseAttachments(arr));
+		} catch(Exception e) {
+			fail();
+		}
+	}
+	
+	public void testParseGoodUrlFromStringThumbnail() {
+		try {
+			String url = "http://test.test";
+			JSONArray arr = new JSONArray("[{images:{thumbnail:{url:\""+url+"\"}}}]");
+			assertEquals(url, JSONUtil.parseAttachments(arr));
+		} catch(Exception e) {
+			fail();
+		}
 	}
 	
 }
