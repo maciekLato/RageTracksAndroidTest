@@ -76,8 +76,8 @@ public class MainGUITest extends UiAutomatorTestCase {
 		// Close the side menu with drag
 		assertTrue("drag failed", getUiDevice().drag(400, 200, 200, 200, 100));
 		assertFalse("Bookmarks sidebar failed to appear", bookmarks.exists());
-		
-		//Check search button animation
+
+		// Check search button animation
 		UiObject searchButton = new UiObject(
 				new UiSelector().descriptionMatches("Open search button"));
 		assertTrue("Search button not found", searchButton.exists());
