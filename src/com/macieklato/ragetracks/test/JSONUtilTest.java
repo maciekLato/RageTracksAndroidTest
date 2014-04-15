@@ -9,8 +9,6 @@ import com.macieklato.ragetracks.util.JSONUtil;
 
 public class JSONUtilTest extends TestCase {
 
-	String urlPrepend = "http://api.soundcloud.com/tracks/";
-	String urlAppend = "/stream?client_id=7622aa84a50c9f7609e2f7ed8bc85e81";
 	String songStart = "tracks/";
 	String songEnd = "&";
 
@@ -55,38 +53,38 @@ public class JSONUtilTest extends TestCase {
 	}
 
 	public void testParseNullSongUrl() {
-		assertEquals(null, JSONUtil.parseContent(null));
+		assertEquals(null, JSONUtil.parseTrack(null));
 	}
 
 	public void testParseNoSongUrl() {
-		assertEquals(null, JSONUtil.parseContent("there/is/not/a/tRakc/here"));
+		assertEquals(null, JSONUtil.parseTrack("there/is/not/a/tRakc/here"));
 	}
 
 	public void testParseSimpleSongUrl() {
 		int track = 440352;
 		String test = songStart + track + songEnd;
-		String expected = urlPrepend + track + urlAppend;
-		assertEquals(expected, JSONUtil.parseContent(test));
+		String expected = ""+track;
+		assertEquals(expected, JSONUtil.parseTrack(test));
 	}
 
 	public void testParseNoEndSongUrl() {
 		int track = 440352;
 		String test = songStart + track;
-		assertEquals(null, JSONUtil.parseContent(test));
+		assertEquals(null, JSONUtil.parseTrack(test));
 	}
 
 	public void testParseNoStartSongUrl() {
 		int track = 49871342;
 		String test = "aseiuaspfs/as/" + track + songEnd + "as;dfas/asdkfj";
-		assertEquals(null, JSONUtil.parseContent(test));
+		assertEquals(null, JSONUtil.parseTrack(test));
 	}
 
 	public void testParseLongSongUrl() {
 		int track = 49871342;
 		String test = "aseiuaspfs/as/" + songStart + track + songEnd
 				+ "$$%&&as;dfas/asdkfj";
-		String expected = urlPrepend + track + urlAppend;
-		assertEquals(expected, JSONUtil.parseContent(test));
+		String expected = "" + track;
+		assertEquals(expected, JSONUtil.parseTrack(test));
 	}
 
 	public void testParseNullThumbnail() {
@@ -157,9 +155,4 @@ public class JSONUtilTest extends TestCase {
 			fail();
 		}
 	}
-	
-	public void testParseRageTracksUrl() {
-		//TODO::test parsing
-	}
-
 }
