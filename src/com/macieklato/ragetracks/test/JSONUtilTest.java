@@ -136,7 +136,7 @@ public class JSONUtilTest extends TestCase {
 			JSONObject images = new JSONObject();
 			idx0.put("images", images);
 			JSONObject thumbnail = new JSONObject();
-			images.put("thumbnail", thumbnail);
+			images.put("large", thumbnail);
 			String url = "testURL";
 			thumbnail.put("url", url);
 			assertEquals(url, JSONUtil.parseAttachments(arr));
@@ -148,7 +148,7 @@ public class JSONUtilTest extends TestCase {
 	public void testParseGoodUrlFromStringThumbnail() {
 		try {
 			String url = "http://test.test";
-			JSONArray arr = new JSONArray("[{images:{thumbnail:{url:\"" + url
+			JSONArray arr = new JSONArray("[{images:{large:{url:\"" + url
 					+ "\"}}}]");
 			assertEquals(url, JSONUtil.parseAttachments(arr));
 		} catch (Exception e) {

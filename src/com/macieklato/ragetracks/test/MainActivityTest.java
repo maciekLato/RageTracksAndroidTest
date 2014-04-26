@@ -8,7 +8,9 @@ public class MainActivityTest extends
 		ActivityInstrumentationTestCase2<MainActivity> {
 	public MainActivityTest() {
 		super(MainActivity.class);
-
 	}
-
+	
+	public void test(){
+		assertTrue(true);
+	}
 }
