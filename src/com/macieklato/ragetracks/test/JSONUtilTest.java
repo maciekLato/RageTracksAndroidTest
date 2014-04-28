@@ -4,7 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import junit.framework.TestCase;
+import android.util.DisplayMetrics;
 
+import com.macieklato.ragetracks.controller.ApplicationController;
+import com.macieklato.ragetracks.service.StreamingBackgroundService;
 import com.macieklato.ragetracks.util.JSONUtil;
 
 public class JSONUtilTest extends TestCase {
@@ -63,7 +66,7 @@ public class JSONUtilTest extends TestCase {
 	public void testParseSimpleSongUrl() {
 		int track = 440352;
 		String test = songStart + track + songEnd;
-		String expected = ""+track;
+		String expected = "" + track;
 		assertEquals(expected, JSONUtil.parseTrack(test));
 	}
 
@@ -121,7 +124,7 @@ public class JSONUtilTest extends TestCase {
 			arr.put(0, idx0);
 			JSONObject images = new JSONObject();
 			idx0.put("images", images);
-			images.put("thumbnail", new JSONObject());
+			images.put(getImageString(), new JSONObject());
 			assertEquals(null, JSONUtil.parseAttachments(arr));
 		} catch (Exception e) {
 			fail();
@@ -136,7 +139,7 @@ public class JSONUtilTest extends TestCase {
 			JSONObject images = new JSONObject();
 			idx0.put("images", images);
 			JSONObject thumbnail = new JSONObject();
-			images.put("large", thumbnail);
+			images.put(getImageString(), thumbnail);
 			String url = "testURL";
 			thumbnail.put("url", url);
 			assertEquals(url, JSONUtil.parseAttachments(arr));
@@ -148,11 +151,21 @@ public class JSONUtilTest extends TestCase {
 	public void testParseGoodUrlFromStringThumbnail() {
 		try {
 			String url = "http://test.test";
-			JSONArray arr = new JSONArray("[{images:{large:{url:\"" + url
+			JSONArray arr = new JSONArray("[{images:{"+getImageString()+":{url:\"" + url
 					+ "\"}}}]");
 			assertEquals(url, JSONUtil.parseAttachments(arr));
 		} catch (Exception e) {
 			fail();
 		}
+	}
+
+	public String getImageString() {
+		if (!StreamingBackgroundService.supportsRemoteControlClient())
+			return "thumbnail";
+		int density = ApplicationController.getInstance().getResources()
+				.getDisplayMetrics().densityDpi;
+		if (density > DisplayMetrics.DENSITY_HIGH)
+			return "large";
+		return "medium";
 	}
 }
