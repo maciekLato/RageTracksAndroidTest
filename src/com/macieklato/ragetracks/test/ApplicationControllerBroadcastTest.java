@@ -12,7 +12,7 @@ import com.macieklato.ragetracks.controller.SongController;
 import com.macieklato.ragetracks.model.Song;
 import com.macieklato.ragetracks.util.Network;
 
-public class ApplicationControllerTest extends TestCase {
+public class ApplicationControllerBroadcastTest extends TestCase {
 
 	int songLoadingCount = 0;
 	int songFinishLoadingCount = 0;
