@@ -37,7 +37,6 @@ public class SongControllerTest extends TestCase {
 						track, Network.CLIENT_ID),
 				"http://RageTracks.com/wp-content/uploads/2014/04/artworks-000077736519-8j462c-t500x500.jpg",
 				track);
-
 	}
 
 	public void testAutoPlay() {
@@ -46,7 +45,7 @@ public class SongControllerTest extends TestCase {
 		sc.nextSong();
 		assertTrue(sc.getAutoPlay());
 	}
-	
+
 	public void testAddSong() {
 		before();
 		assertEquals(0, sc.getNumSongs());
@@ -57,28 +56,28 @@ public class SongControllerTest extends TestCase {
 		sc.reset();
 		assertEquals(0, sc.getNumSongs());
 	}
-	
+
 	public void testReset() {
 		before();
 		assertEquals(0, sc.getNumSongs());
 		sc.addSong(s1);
 		assertEquals(1, sc.getNumSongs());
-		
+
 		assertFalse(sc.getAutoPlay());
 		sc.nextSong();
 		assertTrue(sc.getAutoPlay());
-		
+
 		assertEquals(s1, sc.getSong());
 		sc.addSong(s2);
 		sc.nextSong();
 		assertEquals(s2, sc.getSong());
-		
+
 		sc.reset();
 		assertEquals(0, sc.getNumSongs());
 		assertFalse(sc.getAutoPlay());
 		assertEquals(null, sc.getSong());
 	}
-	
+
 	public void testGetSong() {
 		before();
 		sc.addSong(s1);
@@ -89,7 +88,7 @@ public class SongControllerTest extends TestCase {
 		assertEquals(s2, sc.getSong());
 		assertFalse(s1.equals(s2));
 	}
-	
+
 	public void testGetSongAt() {
 		before();
 		sc.addSong(s1);
@@ -99,7 +98,7 @@ public class SongControllerTest extends TestCase {
 		assertFalse(sc.getSongAt(0).equals(sc.getSongAt(1)));
 		assertEquals(null, sc.getSongAt(-1), sc.getSongAt(2));
 	}
-	
+
 	public void testGetSongById() {
 		before();
 		sc.addSong(s1);
@@ -108,7 +107,7 @@ public class SongControllerTest extends TestCase {
 		sc.addSong(s2);
 		assertEquals(s2, sc.getSongById(s2.getId()));
 	}
-	
+
 	public void testNext() {
 		before();
 		sc.addSong(s1);
@@ -118,7 +117,7 @@ public class SongControllerTest extends TestCase {
 		assertEquals(s2, sc.getSong());
 		assertFalse(s1.equals(s2));
 	}
-	
+
 	public void testPrevious() {
 		before();
 		sc.addSong(s1);
